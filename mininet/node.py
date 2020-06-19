@@ -785,7 +785,9 @@ class Docker ( Host ):
         # setup docker client
         # self.dcli = docker.APIClient(base_url='unix://var/run/docker.sock')
         self.d_client = docker.from_env()
-        self.dcli = self.d_client.api
+        # HACK - probably containernet using diff docker-py SDK version
+        # self.dcli = self.d_client.api
+        self.dcli = self.d_client
 
         _id = None
         if build_params.get("path", None):
