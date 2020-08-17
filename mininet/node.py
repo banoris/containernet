@@ -783,11 +783,10 @@ class Docker ( Host ):
         self.extra_hosts = defaults['extra_hosts']
 
         # setup docker client
-        # self.dcli = docker.APIClient(base_url='unix://var/run/docker.sock')
+        # NOTE: do not `pip install docker-py` (Python Docker API v1.x). It won't
+        # work when `pip install docker` (Python Docker API v2.x) is also installed
+        self.dcli = docker.APIClient(base_url='unix://var/run/docker.sock')
         self.d_client = docker.from_env()
-        # HACK - probably containernet using diff docker-py SDK version
-        # self.dcli = self.d_client.api
-        self.dcli = self.d_client
 
         _id = None
         if build_params.get("path", None):
